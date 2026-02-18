@@ -128,3 +128,28 @@ cat_ca = df_filtered.groupby("Categorie")["Montant_HT"].sum().reset_index()
 best_cat = cat_ca.sort_values("Montant_HT", ascending=False).iloc[0]
 
 st.success(f"Catégorie gagnante : {best_cat['Categorie']} avec {best_cat['Montant_HT']:,.0f} DA")
+
+st.subheader("📊 Classement des Produits par Type de Vente")
+
+# Sélection du type de vente
+type_selected = st.selectbox(
+    "Choisir un Type de Vente",
+    df["Type_Vente"].unique()
+)
+
+# Filtrer selon le type choisi
+df_type = df[df["Type_Vente"] == type_selected]
+
+# Agrégation CA par produit
+classement = df_type.groupby("Produit")["Montant_HT"].sum().reset_index()
+
+# Camembert
+fig = px.pie(
+    classement,
+    names="Produit",
+    values="Montant_HT",
+    title=f"Répartition du CA par Produit - Type {type_selected}",
+    hole=0.4  # donut chart (plus moderne)
+)
+
+st.plotly_chart(fig, use_container_width=True)
