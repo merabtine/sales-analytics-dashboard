@@ -153,3 +153,33 @@ fig = px.pie(
 )
 
 st.plotly_chart(fig, use_container_width=True)
+
+
+st.subheader("📊 Classement des Produits par Année")
+
+# Sélection des produits à afficher (facultatif)
+produits_selected = st.multiselect(
+    "Sélectionner les produits",
+    df["Produit"].unique(),
+    default=df["Produit"].unique()
+)
+
+# Filtrer
+df_prod = df[df["Produit"].isin(produits_selected)]
+
+# Agrégation CA par produit et année
+classement = df_prod.groupby(["Annee", "Produit"])["Montant_HT"].sum().reset_index()
+
+# Graphique barre groupée
+fig = px.bar(
+    classement,
+    x="Produit",
+    y="Montant_HT",
+    color="Annee",
+    barmode="group",
+    title="Classement des Produits par Année (CA HT)",
+    text="Montant_HT"
+)
+
+fig.update_layout(yaxis_title="Chiffre d'Affaire (HT)", xaxis_title="Produit")
+st.plotly_chart(fig, use_container_width=True)
