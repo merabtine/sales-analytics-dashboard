@@ -606,6 +606,3 @@ with tab3:
     recap["Taux_Marge_%"] = (recap["Marge"] / recap["CA"] * 100).round(2)
     st.dataframe(recap.sort_values(["Produit","Annee","Mois"]), use_container_width=True)
 
-st.markdown("---")
-unsafe_allow_html=True
-)
