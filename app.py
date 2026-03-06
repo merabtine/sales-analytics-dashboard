@@ -607,9 +607,6 @@ with tab3:
     st.dataframe(recap.sort_values(["Produit","Annee","Mois"]), use_container_width=True)
 
 st.markdown("---")
-st.markdown(
-    '<div style="text-align:center;font-size:0.8rem;opacity:0.45;padding:10px;">'
-    'BI Dashboard &nbsp;&bull;&nbsp; CS 2eme Annee &nbsp;&bull;&nbsp; Streamlit & Plotly'
-    '</div>',
+
     unsafe_allow_html=True
 )
